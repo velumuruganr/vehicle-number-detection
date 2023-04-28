@@ -113,7 +113,7 @@ def detect():
     
     return redirect(url_for('detect_page'))
     
-    
+
 @app.route('/result')
 def result():
     # Rendering the result page
