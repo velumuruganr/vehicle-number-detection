@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="vh-100 bg-info bg-opacity-10">
+        <section class="d-flex flex-column  h-100 justify-content-evenly align-items-center">
+            <h3 class="mb-4">Vehicle Number Detection and Tracking</h3>
+            <div class="card text-center">
+                <div class="card-header">
+                    <h5>Detect Vehicle Numbers in Video</h5>
+                </div>
+                <form class="card-body" action="/detect" method="post" enctype="multipart/form-data">
+                    <label class="form-label" for="videoFile">Upload Video File Here</label>
+                    <input type="file" class="form-control mb-3" id="videoFile" name="videoFile" required />
+                    <button class="btn btn-primary" type="submit" id="fileUploadButton">
+                        Upload
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
