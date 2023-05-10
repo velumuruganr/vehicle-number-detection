@@ -1,26 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
     <main class="vh-100 bg-info bg-opacity-10">
-        <section class="d-flex flex-column  h-100 justify-content-evenly align-items-center">
+        <section class="d-flex flex-column  h-100 align-items-center">
             <h1>License Plate List</h1>
-            <table class="table table-hover">
-                <tr>
-                    <th>ID</th>
-                    <th>License Plate Number</th>
-                </tr>
-                {% for row in license_plates %}
-                <tr>
-                    <td>{{ row[0] }}</td>
-                    <td>{{ row[1] }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-            <br>
-            <form action="/license_plate_list" method="POST">
+            <form action="/license_plate_list" class="m-2" method="POST">
                 <label for="search_query">Search for a License Plate Number:</label>
-                <input type="text" id="search_query" name="search_query" value="{% search_query if search_query %}">
+                <input type="text" id="search_query" name="search_query">
                 <input type="submit" value="Search">
             </form>
+            <br>
+            <div class="container mt-3">
+                <table class="table table-hover container">
+                    <tr>
+                        <th>ID</th>
+                        <th>License Plate Number</th>
+                    </tr>
+                    {% for row in license_plates %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
         </section>
     </main>
 {% endblock %}
