@@ -1,26 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-    <main class="vh-100 bg-info bg-opacity-10">
-        <section class="d-flex flex-column  h-100 align-items-center">
+    <main class="vh-100">
+        <section class="d-flex flex-column h-100 align-items-center">
+            <br>
             <h1>License Plate List</h1>
-            <form action="/license_plate_list" class="m-2" method="POST">
-                <label for="search_query">Search for a License Plate Number:</label>
-                <input type="text" id="search_query" name="search_query">
-                <input type="submit" value="Search">
+            <p>The table displays the data of all the vehicle numbers that are stored in the database which are recognized from the video.</p>
+            <form action="/license_plate_list" class="mt-2 w-50" method="POST">
+                <div class="input-group">
+                    <input type="search" name="search_query" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-primary-">search</button>
+                </div>
             </form>
             <br>
-            <div class="container mt-3">
-                <table class="table table-hover container">
-                    <tr>
-                        <th>ID</th>
-                        <th>License Plate Number</th>
-                    </tr>
-                    {% for row in license_plates %}
-                    <tr>
-                        <td>{{ row[0] }}</td>
-                        <td>{{ row[1] }}</td>
-                    </tr>
-                    {% endfor %}
+            <div class="container p-4">
+                <table class="table table-bordered shadow-3 rounded-3 table-hover m-4">
+                    <thead class="btn-primary-">
+                        <tr>
+                            <th>ID</th>
+                            <th>License Plate Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in license_plates %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
 
