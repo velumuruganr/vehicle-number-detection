@@ -14,22 +14,24 @@ def create_table():
     c = conn.cursor()
     c.execute('''CREATE TABLE vehicle_numbers
                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                vehicle_number TEXT)''')
+                vehicle_number TEXT,
+                file_path TEXT)''')
     print("Table created")
     conn.commit()
     conn.close()
 
 
-def insert_vehicle_number(vehicle_number: str):
+def insert_vehicle_number(vehicle_number: str, file_path: str):
     
     conn = get_connection()
     c = conn.cursor()
     try:
-        c.execute("INSERT INTO vehicle_numbers (vehicle_number) VALUES (?)",(vehicle_number,))
+        c.execute("INSERT INTO vehicle_numbers (vehicle_number, file_path) VALUES (?, ?)",(vehicle_number,file_path))
     except sqlite3.OperationalError:
         print("Table not found, Creating new table")
         try:
             create_table()
+            c.execute("INSERT INTO vehicle_numbers (vehicle_number, file_path) VALUES (?, ?)",(vehicle_number,file_path))
         except sqlite3.Error as e:
             print("Error creating table: %s" % e)
     conn.commit()
@@ -46,6 +48,7 @@ def get_vehicle_numbers():
         print("Table not found, Creating new table")
         try:
             create_table()
+            c.execute("SELECT * FROM vehicle_numbers")
         except sqlite3.Error as e:
             print("Error creating table: %s" % e)
             
@@ -55,6 +58,25 @@ def get_vehicle_numbers():
     
     return rows
 
+
+def get_number(vehicle_number: str):
+    conn = get_connection()
+    c = conn.cursor()
+    try:
+        c.execute("SELECT * FROM vehicle_numbers WHERE vehicle_number=?",(vehicle_number,))
+    except sqlite3.OperationalError:
+        print("Table not found, Creating new table")
+        try:
+            create_table()
+            c.execute("SELECT * FROM vehicle_numbers WHERE vehicle_number=?",(vehicle_number,))
+        except sqlite3.Error as e:
+            print("Error creating table: %s" % e)
+            
+            
+    rows = c.fetchall()
+    conn.close()
+    
+    return rows
 
 def search_vehicle(search_query:str):
     conn = get_connection()
