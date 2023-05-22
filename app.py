@@ -178,8 +178,8 @@ def detect_vehicles(video_path):
                     
                     number_plate = frame[y1:y2, x1:x2]
                     cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                    count = len([name for name in os.listdir('./temp/plates/')])
-                    file_path = f"temp/plates/plate_{count+1}_{number}.jpg"
+                    count = len([name for name in os.listdir('./static/plates/')])
+                    file_path = f"static/plates/plate_{count+1}.jpg"
                     cv2.imwrite(file_path, number_plate)
                     # possible_plates = findPlate.find_possible_plates(number_plate)
                     # if possible_plates is not None:
