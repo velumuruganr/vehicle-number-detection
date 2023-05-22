@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
     <main class="vh-100">
-        <section class="d-flex flex-column h-100 align-items-center">
+        <section class="d-flex flex-column h-100 p-4 align-items-center">
             <br>
             <h1>License Plate List</h1>
             <p>The table displays the data of all the vehicle numbers that are stored in the database which are recognized from the video.</p>
-            <form action="/license_plate_list" class="mt-2 w-50" method="POST">
-                <div class="input-group">
-                    <input type="search" name="search_query" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="submit" class="btn btn-primary-">search</button>
+            <form id="form" action="/license_plate_list" class="m-2 col-md-12 col-lg-6">
+                <div class="input-group w-100">
+                    <input type="text" id="search" name="search_query" class="form-control rounded w-100" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                 </div>
             </form>
             <br>
             <div class="container p-4">
-                <table class="table table-bordered shadow-3 rounded-3 table-hover m-4">
+                <table class="table table-bordered shadow-3 rounded-3 table-hover">
                     <thead class="btn-primary-">
                         <tr>
                             <th>ID</th>
@@ -35,7 +34,16 @@
 
         </section>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var input = document.getElementById('search');
+            input.focus();
+            input.value = '{{search_query}}';
+          });
+        document.getElementById('search').addEventListener('input',(e)=>{
+            document.getElementById('form').submit()
+        })
+    </script>
 {% endblock %}
 
-{% block script %}
-{% endblock %}
+    

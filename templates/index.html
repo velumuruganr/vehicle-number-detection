@@ -3,10 +3,10 @@
     <main class="vh-100" style="overflow:hidden">
         <section class="h-100">
             <div class="row h-100">
-                <div class="col-6 h-100 d-flex flex-column justify-content-center align-items-start">
-                    <div class="ms-4">
+                <div class="col-md-6 h-100 d-flex flex-column justify-content-center align-items-start">
+                    <div class="m-4">
                         <h1 class="mb-4">Vehicle Number Detection</h1>
-                        <p>A vehicle number detecion system developed using YOLOv8 and Tesseract OCR.Detect the License number of vehicles passed in a video by uploading the video here</p>
+                        <p>A vehicle number detecion system developed using YOLOv8 and Tesseract OCR. Detect the License number of vehicles passed in a video by uploading the video here</p>
                         <div class="card text-center">
                             <form class="card-body" action="/detect" method="post" enctype="multipart/form-data">
                                 <label class="form-label" for="videoFile">Upload Video File Here</label>
@@ -18,13 +18,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 d-flex justify-content-center align-items-center">
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
                     <img src="{{ url_for('static', filename='assets/image.png') }}" alt="" class="w-100 me-4">
                 </div>
             </div>
         </section>
     </main>
-{% endblock %}
-
-{% block script %}
 {% endblock %}

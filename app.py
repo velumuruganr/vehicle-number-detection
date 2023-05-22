@@ -150,7 +150,6 @@ def detect_vehicles(video_path):
     cap = cv2.VideoCapture(video_path)
     
     classes = [2,3,5,7]
-    frame_count = 1
     
     # Looping through the video frames
     while cap.isOpened():
@@ -223,24 +222,18 @@ def process_output(number: str):
 
 
     
-@app.route('/license_plate_list')
+@app.route('/license_plate_list', methods=['GET'])
 def license_plate_list():
-    rows = get_vehicle_numbers()
-    
-    # Render the license plate list template with the license plate data
-    return render_template('license_plate_list.html', license_plates=rows)
+    search_query = request.args.get('search_query')
+    if not search_query:
+        search_query = '' 
 
-
-# Define a route to search for a specific license plate number
-@app.route('/license_plate_list', methods=['POST'])
-def license_plate_search():
-    # Get the search query from the form data
-    search_query = request.form['search_query']
-
-    rows = search_vehicle(search_query)
+    rows = search_vehicle(search_query.upper())
 
     # Render the search results template with the license plate data and search query
     return render_template('license_plate_list.html', license_plates=rows, search_query=search_query)
+
+
 
 
 @app.route('/')
@@ -260,7 +253,9 @@ def detect():
     # Storing the video file in the server
     video_file = request.files['videoFile']
     video_path = f"temp/{secure_filename(video_file.filename)}"
-    video_file.save(video_path)
+    if not os.path.exists(video_path):
+        video_file.save(video_path)
+        print("File Saved")
     
     # detecting the vehicle numbers in the video
     detect_vehicles(video_path)
